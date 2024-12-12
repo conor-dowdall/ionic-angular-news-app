@@ -1,8 +1,8 @@
 {
-  "name": "G10024983",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "name": "ionic-angular-news-app",
+  "version": "0.0.2",
+  "author": "Conor Dowdall",
+  "homepage": "",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

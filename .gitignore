@@ -68,3 +68,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Ignore environment configuration files with sensitive data
+src/environments/environment.ts
