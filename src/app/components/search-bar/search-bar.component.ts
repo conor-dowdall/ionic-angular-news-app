@@ -14,6 +14,6 @@ export class SearchBarComponent {
   @Output() countryNameChange = new EventEmitter<string>();
 
   onSearchChange(searchTerm: string | null | undefined) {
-    if (searchTerm) this.countryNameChange.emit(searchTerm);
+    if (searchTerm != null) this.countryNameChange.emit(searchTerm);
   }
 }

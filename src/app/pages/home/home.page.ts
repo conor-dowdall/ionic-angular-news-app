@@ -43,8 +43,11 @@ export class HomePage implements OnInit {
   }
 
   onCountrySearchChange(searchTerm: string) {
-    this.filteredCountries = this.countries.filter((country) =>
-      country.name.official.toLowerCase().includes(searchTerm)
-    );
+    this.filteredCountries =
+      searchTerm === ''
+        ? this.countries
+        : this.countries.filter((country) =>
+            country.name.official.toLowerCase().includes(searchTerm)
+          );
   }
 }
