@@ -1,14 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Country Search </ion-title>
+    <ion-title>Country Search</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div id="container">
-    <ion-input placeholder="Enter a country name" clearInput class="search-bar">
-    </ion-input>
-  </div>
+  <app-search-bar></app-search-bar>
+  <ion-list>
+    @for (country of countries; track country.name.official) {
+    <ion-item> {{country.name.official}} </ion-item>
+    }
+  </ion-list>
 </ion-content>
-
-<!-- [(ngModel)]="countryName" -->

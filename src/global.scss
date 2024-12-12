@@ -34,4 +34,13 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+@import "@ionic/angular/css/palettes/dark.system.css";
+
+.search-bar {
+  text-align: center;
+  border-radius: 1000vw;
+  border: solid white 1px;
+  box-shadow: 0 0.2em 0.7em white;
+  width: 60ch;
+  max-width: 95%;
+}

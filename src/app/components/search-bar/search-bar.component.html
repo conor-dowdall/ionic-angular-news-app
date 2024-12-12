@@ -1,0 +1,10 @@
+<div id="container">
+  <ion-searchbar
+    [(ngModel)]="countryName"
+    (ionInput)="onSearchChange()"
+    [debounce]="250"
+    placeholder="Enter a country name"
+    showCancelButton="always"
+    class="search-bar"
+  ></ion-searchbar>
+</div>
