@@ -26,7 +26,6 @@ import { CountriesService, Country } from 'src/app/services/countries.service';
   ],
 })
 export class HomePage implements OnInit {
-  countryName: string = '';
   countries: Country[] = [];
   filteredCountries: Country[] = [];
 
@@ -38,16 +37,12 @@ export class HomePage implements OnInit {
     this.getCountries();
   }
 
-  getCountries() {
-    this.countriesService.getCountries().subscribe((countries) => {
-      this.countries = countries;
-      this.filteredCountries = countries;
-      console.log(this.countries);
-    });
+  async getCountries() {
+    this.countries = await this.countriesService.getCountries();
+    this.filteredCountries = this.countries;
   }
 
-  onSearchChange() {
-    const searchTerm = this.countryName.toLowerCase();
+  onCountrySearchChange(searchTerm: string) {
     this.filteredCountries = this.countries.filter((country) =>
       country.name.official.toLowerCase().includes(searchTerm)
     );

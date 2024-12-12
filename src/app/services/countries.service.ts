@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
+import { Storage } from '@ionic/storage-angular';
+import { CapacitorHttp } from '@capacitor/core';
 
 export interface Country {
   name: Name;
@@ -130,27 +130,42 @@ export interface Eng {
   providedIn: 'root',
 })
 export class CountriesService {
-  private httpClient = inject(HttpClient);
+  private storage = inject(Storage);
 
-  constructor() {}
-
-  getCountries(): Observable<Country[]> {
-    return this.httpClient.get<Country[]>(environment.countriesAllUrl).pipe(
-      catchError((error) => {
-        console.error('Error fetching countries', error);
-        return of([]);
-      })
-    );
+  constructor() {
+    this.createStorage();
   }
 
-  getCountryByName(name: string): Observable<Country[]> {
-    return this.httpClient
-      .get<Country[]>(`${environment.countriesOneUrl}${name}`)
-      .pipe(
-        catchError((error) => {
-          console.error(`Error fetching country with name: ${name}`, error);
-          return of([]);
-        })
-      );
+  async createStorage() {
+    await this.storage.create();
+  }
+
+  async getCountries(): Promise<Country[]> {
+    try {
+      // Try to get data from storage first
+      const storedCountries = await this.storage.get('countries');
+
+      if (storedCountries) {
+        // If data is found in storage, return it
+        console.log('Loading countries from stored countries.');
+
+        return storedCountries;
+      } else {
+        // If no data is found in storage, fetch from API
+        console.log('Loading countries from remote URL.');
+        const response = await CapacitorHttp.request({
+          method: 'GET',
+          url: environment.countriesAllUrl,
+        });
+
+        // Store the fetched countries in Ionic Storage for future use
+        await this.storage.set('countries', response.data);
+
+        return response.data;
+      }
+    } catch (error) {
+      console.error('Error fetching countries', error);
+      return []; // Return empty array on error
+    }
   }
 }

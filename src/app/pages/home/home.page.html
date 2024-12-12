@@ -5,10 +5,12 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-search-bar></app-search-bar>
+  <app-search-bar
+    (countryNameChange)="onCountrySearchChange($event)"
+  ></app-search-bar>
   <ion-list>
-    @for (country of countries; track country.name.official) {
-    <ion-item> {{country.name.official}} </ion-item>
+    @for (country of filteredCountries; track country.name.official) {
+    <ion-item>{{country.name.official}}</ion-item>
     }
   </ion-list>
 </ion-content>

@@ -11,10 +11,9 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule, FormsModule, CommonModule],
 })
 export class SearchBarComponent {
-  countryName: string = '';
   @Output() countryNameChange = new EventEmitter<string>();
 
-  onSearchChange() {
-    this.countryNameChange.emit(this.countryName);
+  onSearchChange(searchTerm: string | null | undefined) {
+    if (searchTerm) this.countryNameChange.emit(searchTerm);
   }
 }
