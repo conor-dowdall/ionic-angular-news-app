@@ -4,13 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 @Component({
-  selector: 'app-search-bar',
+  selector: 'app-country-search-bar',
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss'],
   standalone: true,
   imports: [IonicModule, FormsModule, CommonModule],
 })
-export class SearchBarComponent {
+export class CountrySearchBarComponent {
   @Output() countryNameChange = new EventEmitter<string>();
 
   onSearchChange(searchTerm: string | null | undefined) {
