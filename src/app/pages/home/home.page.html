@@ -9,7 +9,7 @@
 
 <ion-content [fullscreen]="true">
   <app-country-search-bar
-    (countryNameChange)="onCountrySearchChange($event)"
+    (countrySearchChange)="onCountrySearchChange($event)"
   ></app-country-search-bar>
   <ion-list>
     @for (country of filteredCountries; track country.name.official) {
