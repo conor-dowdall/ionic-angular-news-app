@@ -6,8 +6,12 @@ import {
   IonContent,
   IonList,
   IonItem,
+  IonButton,
+  IonIcon,
 } from '@ionic/angular/standalone';
-import { SearchBarComponent } from 'src/app/components/search-bar/search-bar.component';
+import { addIcons } from 'ionicons';
+import { settings } from 'ionicons/icons';
+import { CountrySearchBarComponent } from 'src/app/components/search-bar/search-bar.component';
 import { CountriesService, Country } from 'src/app/services/countries.service';
 
 @Component({
@@ -16,13 +20,15 @@ import { CountriesService, Country } from 'src/app/services/countries.service';
   styleUrls: ['home.page.scss'],
   standalone: true,
   imports: [
+    IonIcon,
+    IonButton,
     IonItem,
     IonList,
     IonHeader,
     IonToolbar,
     IonTitle,
     IonContent,
-    SearchBarComponent,
+    CountrySearchBarComponent,
   ],
 })
 export class HomePage implements OnInit {
@@ -31,7 +37,9 @@ export class HomePage implements OnInit {
 
   private countriesService = inject(CountriesService);
 
-  constructor() {}
+  constructor() {
+    addIcons({ settings });
+  }
 
   ngOnInit() {
     this.getCountries();

@@ -1,13 +1,16 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Country Search</ion-title>
+    <ion-title>G10024983</ion-title>
+    <ion-button>
+      <ion-icon slot="icon-only" name="settings"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-search-bar
+  <app-country-search-bar
     (countryNameChange)="onCountrySearchChange($event)"
-  ></app-search-bar>
+  ></app-country-search-bar>
   <ion-list>
     @for (country of filteredCountries; track country.name.official) {
     <ion-item>{{country.name.official}}</ion-item>
