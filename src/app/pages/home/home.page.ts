@@ -1,4 +1,11 @@
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {
   IonHeader,
   IonToolbar,
@@ -32,6 +39,8 @@ import { CountriesService, Country } from 'src/app/services/countries.service';
   ],
 })
 export class HomePage implements OnInit {
+  @ViewChild(CountrySearchbarComponent) searchbar!: CountrySearchbarComponent;
+
   countries: Country[] = [];
   filteredCountries: Country[] = [];
 
@@ -103,16 +112,10 @@ export class HomePage implements OnInit {
   }
 
   private updateSearchBarText() {
-    const countrySearchbar = document.querySelector(
-      'ion-searchbar'
-    ) as HTMLIonSearchbarElement;
-
-    if (countrySearchbar) {
-      countrySearchbar.value =
-        this.selectedIndex === -1
-          ? this.originalCountrySearchTerm
-          : this.filteredCountries[this.selectedIndex].name.official;
-    }
+    this.searchbar.value =
+      this.selectedIndex === -1
+        ? this.originalCountrySearchTerm
+        : this.filteredCountries[this.selectedIndex].name.official;
   }
 
   onCountryEnterKey() {}

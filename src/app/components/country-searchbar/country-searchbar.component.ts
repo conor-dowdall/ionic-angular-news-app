@@ -32,4 +32,13 @@ export class CountrySearchbarComponent {
       this.enterKey.emit();
     }
   }
+
+  set value(value: string) {
+    console.log('value');
+
+    const ionSearchbar = document.querySelector(
+      'ion-searchbar'
+    ) as HTMLIonSearchbarElement;
+    if (ionSearchbar) ionSearchbar.value = value;
+  }
 }
