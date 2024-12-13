@@ -8,12 +8,17 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-country-search-bar
-    (countrySearchChange)="onCountrySearchChange($event)"
-  ></app-country-search-bar>
+  <app-country-searchbar
+    (searchChange)="onCountrySearchChange($event)"
+    (downArrowKey)="onCountryDownArrowKey()"
+    (upArrowKey)="onCountryUpArrowKey()"
+    (enterKey)="onCountryEnterKey()"
+  ></app-country-searchbar>
   <ion-list>
     @for (country of filteredCountries; track country.name.official) {
-    <ion-item>{{country.flag}} {{country.name.official}}</ion-item>
+    <ion-item href="" [color]='$index === selectedIndex ? "primary" : ""'>
+      {{country.flag}} {{country.name.official}}
+    </ion-item>
     }
   </ion-list>
 </ion-content>

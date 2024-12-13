@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import {
   IonHeader,
   IonToolbar,
@@ -11,7 +11,7 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { settings } from 'ionicons/icons';
-import { CountrySearchBarComponent } from 'src/app/components/country-search-bar/country-search-bar.component';
+import { CountrySearchbarComponent } from 'src/app/components/country-searchbar/country-searchbar.component';
 import { CountriesService, Country } from 'src/app/services/countries.service';
 
 @Component({
@@ -28,12 +28,19 @@ import { CountriesService, Country } from 'src/app/services/countries.service';
     IonToolbar,
     IonTitle,
     IonContent,
-    CountrySearchBarComponent,
+    CountrySearchbarComponent,
   ],
 })
 export class HomePage implements OnInit {
   countries: Country[] = [];
   filteredCountries: Country[] = [];
+
+  selectedIndex: number = -1;
+
+  originalCountrySearchTerm: string = '';
+  countrySearchChangeDisabled = false;
+
+  @Output() enterKey = new EventEmitter();
 
   private countriesService = inject(CountriesService);
 
@@ -50,15 +57,63 @@ export class HomePage implements OnInit {
     this.countries.sort((a, b) => {
       return a.name.official.localeCompare(b.name.official);
     });
-    this.filteredCountries = this.countries;
   }
 
   onCountrySearchChange(searchTerm: string) {
+    if (this.countrySearchChangeDisabled) return;
+
+    this.originalCountrySearchTerm = searchTerm; // Store the search term
+    this.selectedIndex = -1; // Reset the selected index when the search term changes
+
+    // Filter countries based on the search term
     this.filteredCountries =
       searchTerm === ''
-        ? this.countries
+        ? []
         : this.countries.filter((country) =>
-            country.name.official.toLowerCase().includes(searchTerm)
+            country.name.official
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase())
           );
   }
+
+  onCountryDownArrowKey() {
+    if (this.filteredCountries.length === 0) return;
+
+    this.selectedIndex =
+      this.selectedIndex === this.filteredCountries.length - 1
+        ? -1
+        : (this.selectedIndex =
+            (this.selectedIndex + 1) % this.filteredCountries.length);
+
+    this.countrySearchChangeDisabled = true;
+    this.updateSearchBarText();
+    this.countrySearchChangeDisabled = false;
+  }
+
+  onCountryUpArrowKey() {
+    if (this.filteredCountries.length === 0) return;
+
+    if (this.selectedIndex === -1) return;
+
+    this.selectedIndex = this.selectedIndex - 1;
+
+    this.countrySearchChangeDisabled = true;
+    this.updateSearchBarText();
+    this.countrySearchChangeDisabled = false;
+  }
+
+  private updateSearchBarText() {
+    const countrySearchbar = document.querySelector(
+      'ion-searchbar'
+    ) as HTMLIonSearchbarElement;
+
+    if (countrySearchbar) {
+      countrySearchbar.value =
+        this.selectedIndex === -1
+          ? this.originalCountrySearchTerm
+          : this.filteredCountries[this.selectedIndex].name.official;
+    }
+  }
+
+  onCountryEnterKey() {}
 }
