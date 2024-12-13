@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  inject,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import {
   IonHeader,
   IonToolbar,
@@ -49,8 +42,6 @@ export class HomePage implements OnInit {
   originalCountrySearchTerm: string = '';
   countrySearchChangeDisabled = false;
 
-  @Output() enterKey = new EventEmitter();
-
   private countriesService = inject(CountriesService);
 
   constructor() {
@@ -58,10 +49,10 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    this.getCountries();
+    this.loadCountries();
   }
 
-  async getCountries() {
+  private async loadCountries(): Promise<void> {
     this.countries = await this.countriesService.getCountries();
     this.countries.sort((a, b) => {
       return a.name.official.localeCompare(b.name.official);
@@ -73,16 +64,15 @@ export class HomePage implements OnInit {
 
     this.originalCountrySearchTerm = searchTerm; // Store the search term
     this.selectedIndex = -1; // Reset the selected index when the search term changes
+    this.filteredCountries = this.filterCountries(searchTerm);
+  }
 
-    // Filter countries based on the search term
-    this.filteredCountries =
-      searchTerm === ''
-        ? []
-        : this.countries.filter((country) =>
-            country.name.official
-              .toLowerCase()
-              .includes(searchTerm.toLowerCase())
-          );
+  private filterCountries(searchTerm: string): Country[] {
+    if (!searchTerm.trim()) return [];
+    const lowerSearchTerm = searchTerm.toLowerCase();
+    return this.countries.filter((country) =>
+      country.name.official.toLowerCase().includes(lowerSearchTerm)
+    );
   }
 
   onCountryDownArrowKey() {
