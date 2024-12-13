@@ -59,7 +59,7 @@ export class HomePage implements OnInit {
     });
   }
 
-  onCountrySearchChange(searchTerm: string) {
+  onCountrySearchChange(searchTerm: string): void {
     if (this.countrySearchChangeDisabled) return;
 
     this.originalCountrySearchTerm = searchTerm; // Store the search term
@@ -75,7 +75,7 @@ export class HomePage implements OnInit {
     );
   }
 
-  onCountryDownArrowKey() {
+  onCountryDownArrowKey(): void {
     if (this.filteredCountries.length === 0) return;
 
     this.selectedIndex =
@@ -89,7 +89,7 @@ export class HomePage implements OnInit {
     this.countrySearchChangeDisabled = false;
   }
 
-  onCountryUpArrowKey() {
+  onCountryUpArrowKey(): void {
     if (this.filteredCountries.length === 0) return;
 
     if (this.selectedIndex === -1) return;
@@ -101,7 +101,7 @@ export class HomePage implements OnInit {
     this.countrySearchChangeDisabled = false;
   }
 
-  private updateSearchBarText() {
+  private updateSearchBarText(): void {
     this.searchbar.value =
       this.selectedIndex === -1
         ? this.originalCountrySearchTerm

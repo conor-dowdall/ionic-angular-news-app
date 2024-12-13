@@ -34,8 +34,6 @@ export class CountrySearchbarComponent {
   }
 
   set value(value: string) {
-    console.log('value');
-
     const ionSearchbar = document.querySelector(
       'ion-searchbar'
     ) as HTMLIonSearchbarElement;
