@@ -147,12 +147,12 @@ export class CountriesService {
 
       if (storedCountries) {
         // If data is found in storage, return it
-        console.log('Loading countries from stored countries.');
+        console.log('Loading countries from stored countries');
 
         return storedCountries;
       } else {
         // If no data is found in storage, fetch from API
-        console.log('Loading countries from remote URL.');
+        console.log('Loading countries from remote URL');
         const response = await CapacitorHttp.request({
           method: 'GET',
           url: environment.countriesAllUrl,
