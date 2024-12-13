@@ -11,7 +11,7 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { settings } from 'ionicons/icons';
-import { CountrySearchBarComponent } from 'src/app/components/search-bar/search-bar.component';
+import { CountrySearchBarComponent } from 'src/app/components/country-search-bar/country-search-bar.component';
 import { CountriesService, Country } from 'src/app/services/countries.service';
 
 @Component({
@@ -47,6 +47,9 @@ export class HomePage implements OnInit {
 
   async getCountries() {
     this.countries = await this.countriesService.getCountries();
+    this.countries.sort((a, b) => {
+      return a.name.official.localeCompare(b.name.official);
+    });
     this.filteredCountries = this.countries;
   }
 

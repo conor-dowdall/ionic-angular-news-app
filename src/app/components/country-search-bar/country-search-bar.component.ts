@@ -5,8 +5,8 @@ import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-country-search-bar',
-  templateUrl: './search-bar.component.html',
-  styleUrls: ['./search-bar.component.scss'],
+  templateUrl: './country-search-bar.component.html',
+  styleUrls: ['./country-search-bar.component.scss'],
   standalone: true,
   imports: [IonicModule, FormsModule, CommonModule],
 })
