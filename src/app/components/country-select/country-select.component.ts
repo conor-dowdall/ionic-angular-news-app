@@ -8,14 +8,22 @@ import {
 import { CountriesService, Country } from 'src/app/services/countries.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { CountrySearchbarComponent } from 'src/app/components/country-searchbar/country-searchbar.component';
-import { IonList, IonItem } from '@ionic/angular/standalone';
+import { IonList, IonItem, IonLabel, IonNote } from '@ionic/angular/standalone';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-country-select',
   templateUrl: './country-select.component.html',
   styleUrls: ['./country-select.component.scss'],
   standalone: true,
-  imports: [IonItem, IonList, CountrySearchbarComponent],
+  imports: [
+    IonNote,
+    IonLabel,
+    IonItem,
+    IonList,
+    CountrySearchbarComponent,
+    RouterLink,
+  ],
 })
 export class CountrySelectComponent implements OnInit, AfterViewInit {
   @ViewChild(CountrySearchbarComponent)
@@ -31,6 +39,7 @@ export class CountrySelectComponent implements OnInit, AfterViewInit {
 
   private toastService = inject(ToastService);
   private countriesService = inject(CountriesService);
+  private router = inject(Router);
 
   ngOnInit() {
     this.loadCountries();
@@ -125,5 +134,7 @@ export class CountrySelectComponent implements OnInit, AfterViewInit {
         : this.filteredCountries[this.selectedIndex].name.official;
   }
 
-  onCountryEnterKey() {}
+  onCountryEnterKey() {
+    this.router.navigate(['/country', this.countrySearchbar.value]);
+  }
 }

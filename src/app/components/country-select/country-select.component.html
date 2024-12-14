@@ -6,8 +6,15 @@
 ></app-country-searchbar>
 <ion-list>
   @for (country of filteredCountries; track country.name.official) {
-  <ion-item href="" [color]="$index === selectedIndex ? 'primary' : ''">
-    {{ country.flag }} {{ country.name.official }}
+  <ion-item
+    button
+    [routerLink]="['/country', country.name.official]"
+    [color]="$index === selectedIndex ? 'primary' : ''"
+  >
+    <ion-note aria-hidden="true" slot="start">
+      {{ country.flag }}
+    </ion-note>
+    <ion-label> {{ country.name.official }}</ion-label>
   </ion-item>
   }
 </ion-list>

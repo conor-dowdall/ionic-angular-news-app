@@ -36,6 +36,10 @@ export class CountrySearchbarComponent {
     }
   }
 
+  get value(): string {
+    return this.searchbar.value != null ? this.searchbar.value : '';
+  }
+
   set value(value: string) {
     this.searchbar.value = value;
   }
