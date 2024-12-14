@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { IonSearchbar } from '@ionic/angular';
 
 @Component({
   selector: 'app-country-searchbar',
@@ -11,6 +12,8 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule, FormsModule, CommonModule],
 })
 export class CountrySearchbarComponent {
+  @ViewChild(IonSearchbar) searchbar!: IonSearchbar;
+
   @Output() searchChange = new EventEmitter<string>();
   @Output() downArrowKey = new EventEmitter();
   @Output() upArrowKey = new EventEmitter();
@@ -34,9 +37,10 @@ export class CountrySearchbarComponent {
   }
 
   set value(value: string) {
-    const ionSearchbar = document.querySelector(
-      'ion-searchbar'
-    ) as HTMLIonSearchbarElement;
-    if (ionSearchbar) ionSearchbar.value = value;
+    this.searchbar.value = value;
+  }
+
+  setFocus() {
+    this.searchbar.setFocus();
   }
 }

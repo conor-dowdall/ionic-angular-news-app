@@ -1,17 +1,23 @@
-import { Component, OnInit, inject, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  inject,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
 import { CountriesService, Country } from 'src/app/services/countries.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { CountrySearchbarComponent } from 'src/app/components/country-searchbar/country-searchbar.component';
-import { IonList, IonLabel, IonItem } from '@ionic/angular/standalone';
+import { IonList, IonItem } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-country-select',
   templateUrl: './country-select.component.html',
   styleUrls: ['./country-select.component.scss'],
   standalone: true,
-  imports: [IonItem, IonLabel, IonList, CountrySearchbarComponent],
+  imports: [IonItem, IonList, CountrySearchbarComponent],
 })
-export class CountrySelectComponent implements OnInit {
+export class CountrySelectComponent implements OnInit, AfterViewInit {
   @ViewChild(CountrySearchbarComponent)
   countrySearchbar!: CountrySearchbarComponent;
 
@@ -30,6 +36,13 @@ export class CountrySelectComponent implements OnInit {
     this.loadCountries();
   }
 
+  ngAfterViewInit() {
+    // Focus the search bar after the view has been initialized
+    setTimeout(() => {
+      this.countrySearchbar.setFocus();
+    }, 100);
+  }
+
   private async loadCountries() {
     this.countries = await this.getSortedCountries();
     this.filteredCountries = this.countries;
@@ -40,7 +53,7 @@ export class CountrySelectComponent implements OnInit {
       const countries = await this.countriesService.getCountries();
       this.toastService.presentToast(
         'Success: Countries loaded.',
-        500,
+        750,
         'success'
       );
       return countries.sort((a, b) => {
