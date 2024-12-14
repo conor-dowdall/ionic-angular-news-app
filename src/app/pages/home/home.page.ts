@@ -13,7 +13,7 @@ import { addIcons } from 'ionicons';
 import { settings } from 'ionicons/icons';
 import { CountrySearchbarComponent } from 'src/app/components/country-searchbar/country-searchbar.component';
 import { CountriesService, Country } from 'src/app/services/countries.service';
-import { ToastController } from '@ionic/angular';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-home',
@@ -44,7 +44,6 @@ export class HomePage implements OnInit {
   countrySearchChangeDisabled = false;
 
   private countriesService = inject(CountriesService);
-  private toastController = inject(ToastController);
 
   constructor() {
     addIcons({ settings });
@@ -62,31 +61,25 @@ export class HomePage implements OnInit {
   private async getSortedCountries(): Promise<Country[]> {
     try {
       const countries = await this.countriesService.getCountries();
-      this.presentToast('Success: Countries loaded.', 500, 'success');
+      ToastService.presentToast('Success: Countries loaded.', 500, 'success');
       return countries.sort((a, b) => {
         return a.name.official.localeCompare(b.name.official);
       });
     } catch (error) {
       if (error instanceof Error)
-        this.presentToast('Try reloading. ' + error.message, 5000, 'danger');
+        ToastService.presentToast(
+          'Try reloading. ' + error.message,
+          5000,
+          'danger'
+        );
       else
-        this.presentToast(
+        ToastService.presentToast(
           'Try reloading. An unknown error occurred.',
           5000,
           'danger'
         );
       return [];
     }
-  }
-
-  async presentToast(message: string, duration: number, type: string) {
-    const toast = await this.toastController.create({
-      position: 'top',
-      message: message,
-      duration: duration,
-    });
-    toast.color = type;
-    await toast.present();
   }
 
   onCountrySearchChange(searchTerm: string): void {
