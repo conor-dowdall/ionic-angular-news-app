@@ -5,9 +5,9 @@ import { ToastController } from '@ionic/angular';
   providedIn: 'root',
 })
 export class ToastService {
-  private static toastController: ToastController = inject(ToastController);
+  private toastController: ToastController = inject(ToastController);
 
-  static async presentToast(message: string, duration: number, type: string) {
+  async presentToast(message: string, duration: number, type: string) {
     const toast = await this.toastController.create({
       position: 'top',
       message: message,

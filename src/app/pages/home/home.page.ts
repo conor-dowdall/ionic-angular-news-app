@@ -43,6 +43,7 @@ export class HomePage implements OnInit {
   originalCountrySearchTerm = '';
   countrySearchChangeDisabled = false;
 
+  private toastService = inject(ToastService);
   private countriesService = inject(CountriesService);
 
   constructor() {
@@ -61,19 +62,23 @@ export class HomePage implements OnInit {
   private async getSortedCountries(): Promise<Country[]> {
     try {
       const countries = await this.countriesService.getCountries();
-      ToastService.presentToast('Success: Countries loaded.', 500, 'success');
+      this.toastService.presentToast(
+        'Success: Countries loaded.',
+        500,
+        'success'
+      );
       return countries.sort((a, b) => {
         return a.name.official.localeCompare(b.name.official);
       });
     } catch (error) {
       if (error instanceof Error)
-        ToastService.presentToast(
+        this.toastService.presentToast(
           'Try reloading. ' + error.message,
           5000,
           'danger'
         );
       else
-        ToastService.presentToast(
+        this.toastService.presentToast(
           'Try reloading. An unknown error occurred.',
           5000,
           'danger'
