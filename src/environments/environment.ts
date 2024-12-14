@@ -4,9 +4,7 @@
 
 export const environment = {
   production: false,
-  countriesBaseUrl: 'https://restcountries.com/v3.1/',
-
-  countryApiKey: 'your-dev-country-api-key-here',
+  countriesAllUrl: 'https://restcountries.com/v3.1/all',
 };
 
 /*
