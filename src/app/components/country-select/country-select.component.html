@@ -1,0 +1,13 @@
+<app-country-searchbar
+  (searchChange)="onCountrySearchChange($event)"
+  (downArrowKey)="onCountryDownArrowKey()"
+  (upArrowKey)="onCountryUpArrowKey()"
+  (enterKey)="onCountryEnterKey()"
+></app-country-searchbar>
+<ion-list>
+  @for (country of filteredCountries; track country.name.official) {
+  <ion-item href="" [color]="$index === selectedIndex ? 'primary' : ''">
+    {{ country.flag }} {{ country.name.official }}
+  </ion-item>
+  }
+</ion-list>

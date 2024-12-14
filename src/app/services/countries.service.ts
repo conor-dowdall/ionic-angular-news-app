@@ -146,11 +146,7 @@ export class CountriesService {
       const storedCountries = await this.storage.get('countries');
 
       if (storedCountries) {
-        // If data is found in storage, return it
-        console.log(
-          'Loading countries from stored countries.',
-          storedCountries
-        );
+        console.log('Loading countries from stored countries.');
 
         // Validate stored data before returning
         if (Array.isArray(storedCountries) && storedCountries.length > 0) {
