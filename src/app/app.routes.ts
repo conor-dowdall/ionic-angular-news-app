@@ -16,4 +16,9 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'country-news',
+    loadComponent: () =>
+      import('./country-news/country-news.page').then((m) => m.CountryNewsPage),
+  },
 ];
