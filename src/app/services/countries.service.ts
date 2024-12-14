@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
-import { Storage } from '@ionic/storage-angular';
 import { CapacitorHttp } from '@capacitor/core';
+import { StorageService } from './storage.service';
 
 export interface Country {
   name: Name;
@@ -130,20 +130,12 @@ export interface Eng {
   providedIn: 'root',
 })
 export class CountriesService {
-  private storage = inject(Storage);
-
-  constructor() {
-    this.createStorage();
-  }
-
-  async createStorage() {
-    await this.storage.create();
-  }
+  private storage = inject(StorageService);
 
   async getCountries(): Promise<Country[]> {
     try {
       // Try to get data from storage first
-      const storedCountries = await this.storage.get('countries');
+      const storedCountries = await this.storage.getItem('countries');
 
       if (storedCountries) {
         console.log('Loading countries from stored countries.');
@@ -169,7 +161,7 @@ export class CountriesService {
       }
 
       // Store valid data in Ionic Storage
-      await this.storage.set('countries', response.data);
+      await this.storage.setItem('countries', response.data);
       return response.data;
     } catch (error) {
       console.error('Error fetching countries', error);
