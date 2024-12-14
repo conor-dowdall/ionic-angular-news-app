@@ -13,6 +13,7 @@ import { addIcons } from 'ionicons';
 import { settings } from 'ionicons/icons';
 import { CountrySearchbarComponent } from 'src/app/components/country-searchbar/country-searchbar.component';
 import { CountriesService, Country } from 'src/app/services/countries.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -39,10 +40,11 @@ export class HomePage implements OnInit {
 
   selectedIndex: number = -1;
 
-  originalCountrySearchTerm: string = '';
+  originalCountrySearchTerm = '';
   countrySearchChangeDisabled = false;
 
   private countriesService = inject(CountriesService);
+  private toastController = inject(ToastController);
 
   constructor() {
     addIcons({ settings });
@@ -52,11 +54,39 @@ export class HomePage implements OnInit {
     this.loadCountries();
   }
 
-  private async loadCountries(): Promise<void> {
-    this.countries = await this.countriesService.getCountries();
-    this.countries.sort((a, b) => {
-      return a.name.official.localeCompare(b.name.official);
+  private async loadCountries() {
+    this.countries = await this.getSortedCountries();
+    this.filteredCountries = this.countries;
+  }
+
+  private async getSortedCountries(): Promise<Country[]> {
+    try {
+      const countries = await this.countriesService.getCountries();
+      this.presentToast('Success: Countries loaded.', 500, 'success');
+      return countries.sort((a, b) => {
+        return a.name.official.localeCompare(b.name.official);
+      });
+    } catch (error) {
+      if (error instanceof Error)
+        this.presentToast('Try reloading. ' + error.message, 5000, 'danger');
+      else
+        this.presentToast(
+          'Try reloading. An unknown error occurred.',
+          5000,
+          'danger'
+        );
+      return [];
+    }
+  }
+
+  async presentToast(message: string, duration: number, type: string) {
+    const toast = await this.toastController.create({
+      position: 'top',
+      message: message,
+      duration: duration,
     });
+    toast.color = type;
+    await toast.present();
   }
 
   onCountrySearchChange(searchTerm: string): void {
@@ -68,7 +98,7 @@ export class HomePage implements OnInit {
   }
 
   private filterCountries(searchTerm: string): Country[] {
-    if (!searchTerm.trim()) return [];
+    if (!searchTerm.trim()) return this.countries;
     const lowerSearchTerm = searchTerm.toLowerCase();
     return this.countries.filter((country) =>
       country.name.official.toLowerCase().includes(lowerSearchTerm)

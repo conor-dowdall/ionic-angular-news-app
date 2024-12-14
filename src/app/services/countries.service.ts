@@ -147,25 +147,41 @@ export class CountriesService {
 
       if (storedCountries) {
         // If data is found in storage, return it
-        console.log('Loading countries from stored countries');
+        console.log(
+          'Loading countries from stored countries.',
+          storedCountries
+        );
 
-        return storedCountries;
-      } else {
-        // If no data is found in storage, fetch from API
-        console.log('Loading countries from remote URL');
-        const response = await CapacitorHttp.request({
-          method: 'GET',
-          url: environment.countriesAllUrl,
-        });
-
-        // Store the fetched countries in Ionic Storage for future use
-        await this.storage.set('countries', response.data);
-
-        return response.data;
+        // Validate stored data before returning
+        if (Array.isArray(storedCountries) && storedCountries.length > 0) {
+          return storedCountries;
+        } else {
+          console.warn('Stored countries data is invalid, refetching.');
+        }
       }
+
+      // Fetch from API if storage is empty or invalid
+      console.log('Fetching countries from remote API.');
+      const response = await CapacitorHttp.request({
+        method: 'GET',
+        url: environment.countriesAllUrl, // Ensure the URL is correct
+      });
+
+      // Check for valid response data
+      if (!response || !Array.isArray(response.data)) {
+        throw new Error('API response is invalid or malformed.');
+      }
+
+      // Store valid data in Ionic Storage
+      await this.storage.set('countries', response.data);
+      return response.data;
     } catch (error) {
       console.error('Error fetching countries', error);
-      return []; // Return empty array on error
+
+      if (error instanceof Error)
+        throw new Error(`Failed to fetch countries: ${error.message}`);
+
+      throw new Error('Failed to fetch countries: An unknown error occurred.');
     }
   }
 }
