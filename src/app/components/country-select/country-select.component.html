@@ -1,9 +1,9 @@
-<app-country-searchbar
+<app-searchbar
   (searchChange)="onCountrySearchChange($event)"
   (downArrowKey)="onCountryDownArrowKey()"
   (upArrowKey)="onCountryUpArrowKey()"
   (enterKey)="onCountryEnterKey()"
-></app-country-searchbar>
+></app-searchbar>
 <ion-list>
   @for (country of filteredCountries; track country.name.official) {
   <ion-item

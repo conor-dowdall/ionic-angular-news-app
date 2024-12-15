@@ -1,7 +1,6 @@
 <ion-searchbar
   (ionInput)="onInputChange($event)"
   (keydown)="onKeyDown($event)"
-  [debounce]="50"
+  [debounce]="25"
   showClearButton="always"
-  placeholder="Country"
 ></ion-searchbar>

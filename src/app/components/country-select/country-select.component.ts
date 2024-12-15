@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { CountriesService, Country } from 'src/app/services/countries.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { CountrySearchbarComponent } from 'src/app/components/country-searchbar/country-searchbar.component';
+import { SearchbarComponent } from 'src/app/components/searchbar/searchbar.component';
 import { IonList, IonItem, IonLabel, IonNote } from '@ionic/angular/standalone';
 import { Router, RouterLink } from '@angular/router';
 
@@ -21,13 +21,13 @@ import { Router, RouterLink } from '@angular/router';
     IonLabel,
     IonItem,
     IonList,
-    CountrySearchbarComponent,
+    SearchbarComponent,
     RouterLink,
   ],
 })
-export class CountrySelectComponent implements OnInit, AfterViewInit {
-  @ViewChild(CountrySearchbarComponent)
-  countrySearchbar!: CountrySearchbarComponent;
+export class CountrySelectComponent implements OnInit {
+  @ViewChild(SearchbarComponent)
+  countrySearchbar!: SearchbarComponent;
 
   countries: Country[] = [];
   filteredCountries: Country[] = [];
@@ -43,13 +43,6 @@ export class CountrySelectComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.loadCountries();
-  }
-
-  ngAfterViewInit() {
-    // Focus the search bar after the view has been initialized
-    setTimeout(() => {
-      this.countrySearchbar.setFocus();
-    }, 100);
   }
 
   private async loadCountries() {
@@ -83,6 +76,10 @@ export class CountrySelectComponent implements OnInit, AfterViewInit {
         );
       return [];
     }
+  }
+
+  setFocus() {
+    this.countrySearchbar.setFocus();
   }
 
   onCountrySearchChange(searchTerm: string): void {

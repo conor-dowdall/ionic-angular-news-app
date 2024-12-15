@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewChecked } from '@angular/core';
 import { addIcons } from 'ionicons';
 import { settings } from 'ionicons/icons';
 import {
@@ -26,8 +26,18 @@ import { CountrySelectComponent } from 'src/app/components/country-select/countr
     CountrySelectComponent,
   ],
 })
-export class HomePage {
+export class HomePage implements AfterViewChecked {
+  @ViewChild(CountrySelectComponent)
+  countrySelect!: CountrySelectComponent;
+
   constructor() {
     addIcons({ settings });
+  }
+
+  ngAfterViewChecked() {
+    // Focus the country select's search bar after the view has been initialized
+    setTimeout(() => {
+      this.countrySelect.setFocus();
+    }, 100);
   }
 }

@@ -5,13 +5,13 @@ import { IonicModule } from '@ionic/angular';
 import { IonSearchbar } from '@ionic/angular';
 
 @Component({
-  selector: 'app-country-searchbar',
-  templateUrl: './country-searchbar.component.html',
-  styleUrls: ['./country-searchbar.component.scss'],
+  selector: 'app-searchbar',
+  templateUrl: './searchbar.component.html',
+  styleUrls: ['./searchbar.component.scss'],
   standalone: true,
   imports: [IonicModule, FormsModule, CommonModule],
 })
-export class CountrySearchbarComponent {
+export class SearchbarComponent {
   @ViewChild(IonSearchbar) searchbar!: IonSearchbar;
 
   @Output() searchChange = new EventEmitter<string>();
