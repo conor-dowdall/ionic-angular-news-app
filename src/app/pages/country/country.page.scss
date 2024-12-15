@@ -1,0 +1,33 @@
+ion-card {
+  padding: 2em;
+  width: fit-content;
+}
+
+div.flex {
+  display: flex;
+  justify-content: space-evenly;
+
+  > ion-button {
+    --padding-top: 2em;
+    --padding-end: 3em;
+    --padding-bottom: 2em;
+    --padding-start: 3em;
+
+    &.news {
+      --background: rgb(36, 195, 34);
+      --background: linear-gradient(
+        0deg,
+        rgba(36, 195, 34, 1) 0%,
+        rgba(45, 253, 197, 1) 100%
+      );
+    }
+    &.weather {
+      --background: rgb(195, 127, 34);
+      --background: linear-gradient(
+        0deg,
+        rgba(195, 127, 34, 1) 0%,
+        rgba(253, 238, 45, 1) 100%
+      );
+    }
+  }
+}
