@@ -1,0 +1,10 @@
+ion-card {
+  padding: 2em;
+  width: min-content;
+}
+
+ion-label {
+  > img {
+    width: 5em;
+  }
+}

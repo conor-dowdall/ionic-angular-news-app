@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   countriesAllUrl: 'https://restcountries.com/v3.1/all',
+  newsBaseUrl: 'https://newsdata.io/api/1/latest',
+  newsApiKey: 'pub_624267624daca6c938afd088a339d6faf76c3',
 };
 
 /*

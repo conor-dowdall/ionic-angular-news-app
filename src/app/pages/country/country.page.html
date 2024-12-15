@@ -1,21 +1,21 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>{{countryObject?.name?.official}}</ion-title>
+    <ion-title>{{country?.name?.official}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-card>
-    <img src="{{countryObject?.flags?.png}}" alt="Country flag" />
+    <img src="{{country?.flags?.png}}" alt="Country flag" />
     <ion-card-header>
-      <ion-card-title>{{countryObject?.name?.official}}</ion-card-title>
-      <ion-card-subtitle>Capital: {{countryObject?.capital}}</ion-card-subtitle>
+      <ion-card-title>{{country?.name?.official}}</ion-card-title>
+      <ion-card-subtitle>Capital: {{country?.capital}}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      Check the news or weather for {{countryObject?.name?.common}}
+      Check the news or weather for {{country?.name?.common}}
     </ion-card-content>
     <div class="flex">
-      <ion-button class="news">
+      <ion-button [routerLink]="['/news', country?.cca2]" class="news">
         <ion-icon slot="start" name="newspaper-outline"></ion-icon>
         News
       </ion-button>

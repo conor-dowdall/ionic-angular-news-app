@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { CapacitorHttp } from '@capacitor/core';
 import { StorageService } from './storage.service';
 
@@ -152,7 +152,7 @@ export class CountriesService {
       console.log('Fetching countries from remote API.');
       const response = await CapacitorHttp.request({
         method: 'GET',
-        url: environment.countriesAllUrl, // Ensure the URL is correct
+        url: environment.countriesAllUrl,
       });
 
       // Check for valid response data

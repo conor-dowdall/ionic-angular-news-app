@@ -12,6 +12,11 @@ export const routes: Routes = [
       import('./pages/country/country.page').then((m) => m.CountryPage),
   },
   {
+    path: 'news/:countryCode',
+    loadComponent: () =>
+      import('./pages/news/news.page').then((m) => m.NewsPage),
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',

@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>News</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- href="{{newsResult.link}} -->
+  @for (newsResult of newsResults; track newsResult.article_id) {
+  <ion-item>
+    @if (newsResult.image_url) {
+    <ion-label slot="start">
+      <img src="{{newsResult.image_url}}" alt="news article image" />
+    </ion-label>
+    }
+    <ion-label>
+      @if(newsResult.source_name){
+      <ion-card-title [attr.href]="newsResult.source_url">
+        {{newsResult.source_name}}
+      </ion-card-title>
+      } @else {
+      <ion-card-title>No Title</ion-card-title>
+      }
+      <ion-label>
+        @if (newsResult.description) { {{newsResult.description |
+        truncateWords:20}} } @else { No description available. }
+      </ion-label>
+    </ion-label>
+  </ion-item>
+  }
+</ion-content>

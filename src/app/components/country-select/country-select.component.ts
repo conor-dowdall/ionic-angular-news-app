@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  inject,
-  ViewChild,
-  AfterViewInit,
-} from '@angular/core';
+import { Component, OnInit, inject, ViewChild } from '@angular/core';
 import { CountriesService, Country } from 'src/app/services/countries.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { SearchbarComponent } from 'src/app/components/searchbar/searchbar.component';
@@ -53,11 +47,7 @@ export class CountrySelectComponent implements OnInit {
   private async getSortedCountries(): Promise<Country[]> {
     try {
       const countries = await this.countriesService.getCountries();
-      this.toastService.presentToast(
-        'Success: Countries loaded.',
-        750,
-        'success'
-      );
+      this.toastService.presentToast('Countries loaded', 650, 'success');
       return countries.sort((a, b) => {
         return a.name.official.localeCompare(b.name.official);
       });

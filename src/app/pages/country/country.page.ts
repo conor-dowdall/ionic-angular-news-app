@@ -13,7 +13,7 @@ import {
   IonButton,
   IonIcon,
 } from '@ionic/angular/standalone';
-import { ActivatedRoute } from '@angular/router';
+import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { CountriesService, Country } from 'src/app/services/countries.service';
 import { addIcons } from 'ionicons';
 import { newspaperOutline, sunnyOutline } from 'ionicons/icons';
@@ -36,10 +36,11 @@ import { newspaperOutline, sunnyOutline } from 'ionicons/icons';
     IonTitle,
     IonToolbar,
     CommonModule,
+    RouterLink,
   ],
 })
 export class CountryPage implements OnInit {
-  countryObject: Country | null = null;
+  country: Country | null = null;
 
   private route = inject(ActivatedRoute);
   private countriesService = inject(CountriesService);
@@ -50,16 +51,18 @@ export class CountryPage implements OnInit {
 
   ngOnInit() {
     const countryName = this.route.snapshot.paramMap.get('countryName');
-    this.loadCountryObject(countryName);
+    this.loadCountry(countryName);
   }
 
-  private async loadCountryObject(countryName: string | null) {
+  private async loadCountry(countryName: string | null) {
     if (countryName != null) {
       const countries = await this.countriesService.getCountries();
       const country = countries.find(
         (country) => country.name.official === countryName
       );
-      if (country != null) this.countryObject = country;
+      if (country != null) this.country = country;
     }
   }
+
+  handleNewsClicked() {}
 }
