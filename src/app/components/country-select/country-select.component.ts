@@ -95,10 +95,17 @@ export class CountrySelectComponent implements OnInit, AfterViewInit {
 
   private filterCountries(searchTerm: string): Country[] {
     if (!searchTerm.trim()) return this.countries;
+
     const lowerSearchTerm = searchTerm.toLowerCase();
-    return this.countries.filter((country) =>
+    let countriesSearch = this.countries.filter((country) =>
       country.name.official.toLowerCase().includes(lowerSearchTerm)
     );
+    if (countriesSearch.length !== 0) return countriesSearch;
+
+    countriesSearch = this.countries.filter((country) =>
+      country.name.common.toLowerCase().includes(lowerSearchTerm)
+    );
+    return countriesSearch;
   }
 
   onCountryDownArrowKey(): void {
