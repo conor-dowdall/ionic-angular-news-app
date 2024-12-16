@@ -49,7 +49,10 @@ export class NewsService {
       const response = await CapacitorHttp.request({
         method: 'GET',
         url: environment.newsBaseUrl,
-        params: { apiKey: environment.newsApiKey, country: searchTerm },
+        params: {
+          apiKey: environment.newsApiKey,
+          country: searchTerm,
+        },
       });
 
       // Check for valid response data

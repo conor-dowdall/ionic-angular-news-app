@@ -36,6 +36,7 @@ export class NewsPage implements OnInit {
 
   countryName: string | null = null;
   newsResults: Result[] = [];
+  newsFailed: boolean = false;
 
   constructor() {}
 
@@ -48,9 +49,11 @@ export class NewsPage implements OnInit {
 
   private async loadNews(countryCode: string) {
     try {
+      this.newsFailed = false;
       this.newsResults = await this.newsService.getNews(countryCode);
       this.toastService.presentToast('News loaded', 650, 'success');
     } catch (error) {
+      this.newsFailed = true;
       if (error instanceof Error)
         this.toastService.presentToast(
           'Try reloading. ' + error.message,
