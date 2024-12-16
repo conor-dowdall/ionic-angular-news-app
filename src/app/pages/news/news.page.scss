@@ -17,7 +17,7 @@
   padding: 0.5em;
   transition: box-shadow 0.3s ease;
   cursor: pointer;
-  flex: 1 0 40ch;
+  flex: 1 0 45ch;
 
   &:hover {
     box-shadow: 0 0.2em 0.5em rgba(184, 184, 184, 0.5);
@@ -28,11 +28,26 @@
   flex-shrink: 0;
   margin: 0.5em;
   img {
-    width: 5em;
+    width: 6em;
     height: 5em;
     object-fit: cover;
     border-radius: 0.4em;
   }
+}
+
+.news-image-gradient {
+  flex-shrink: 0;
+  border-radius: 0.4em;
+  margin: 0.5em;
+  width: 6em;
+  height: 5em;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    149deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(82, 82, 198, 1) 67%,
+    rgba(97, 97, 97, 1) 100%
+  );
 }
 
 .news-content {

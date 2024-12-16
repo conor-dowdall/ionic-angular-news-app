@@ -8,9 +8,13 @@
   <div class="news-container">
     @for (newsResult of newsResults; track newsResult.article_id) {
     <a [href]="newsResult.link" target="_blank" class="news-item">
+      @if (newsResult.image_url) {
       <div class="news-image">
         <img [src]="newsResult.image_url" alt="News image" />
       </div>
+      }@else {
+      <div class="news-image-gradient"></div>
+      }
       <div class="news-content">
         <h2>{{newsResult.title}}</h2>
         <p>
