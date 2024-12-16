@@ -44,6 +44,37 @@ export class NewsService {
   constructor() {}
 
   async getNews(searchTerm: string): Promise<Result[]> {
+    try {
+      console.log('Fetching news from remote API.');
+      const response = await CapacitorHttp.request({
+        method: 'GET',
+        url: environment.newsBaseUrl,
+        params: { apiKey: environment.newsApiKey, country: searchTerm },
+      });
+
+      // Check for valid response data
+      if (
+        typeof response === 'object' &&
+        response !== null &&
+        !Array.isArray(response)
+      ) {
+        if (response.data.status !== 'success')
+          throw new Error('API request unsuccessful.');
+
+        return response.data.results;
+      }
+      throw new Error('API response is invalid or malformed.');
+    } catch (error) {
+      console.error('Error fetching news', error);
+
+      if (error instanceof Error)
+        throw new Error(`Failed to fetch news: ${error.message}`);
+
+      throw new Error('Failed to fetch news: An unknown error occurred.');
+    }
+  }
+
+  async getFakeNews(searchTerm: string): Promise<Result[]> {
     return [
       {
         article_id: '04b8eab2a72253adab320f14f66f8209',
@@ -355,37 +386,5 @@ export class NewsService {
         duplicate: false,
       },
     ];
-  }
-
-  async getNews2(searchTerm: string): Promise<Result[]> {
-    try {
-      console.log('Fetching news from remote API.');
-      const response = await CapacitorHttp.request({
-        method: 'GET',
-        // url: 'https:/a.b.c.d.e',
-        url: environment.newsBaseUrl,
-        params: { apiKey: environment.newsApiKey, country: searchTerm },
-      });
-
-      // Check for valid response data
-      if (
-        typeof response === 'object' &&
-        response !== null &&
-        !Array.isArray(response)
-      ) {
-        if (response.data.status !== 'success')
-          throw new Error('API request unsuccessful.');
-
-        return response.data.results;
-      }
-      throw new Error('API response is invalid or malformed.');
-    } catch (error) {
-      console.error('Error fetching news', error);
-
-      if (error instanceof Error)
-        throw new Error(`Failed to fetch news: ${error.message}`);
-
-      throw new Error('Failed to fetch news: An unknown error occurred.');
-    }
   }
 }

@@ -48,8 +48,7 @@ export class NewsPage implements OnInit {
 
   private async loadNews(countryCode: string) {
     try {
-      this.newsResults = [];
-      // this.newsResults = await this.newsService.getNews(countryCode);
+      this.newsResults = await this.newsService.getNews(countryCode);
       this.toastService.presentToast('News loaded', 650, 'success');
     } catch (error) {
       if (error instanceof Error)
