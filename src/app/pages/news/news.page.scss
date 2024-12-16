@@ -17,13 +17,7 @@
   padding: 0.5em;
   transition: box-shadow 0.3s ease;
   cursor: pointer;
-  max-width: 50ch;
-  margin: 0 auto;
-
-  @media (width<110ch) {
-    max-width: unset;
-    width: 90%;
-  }
+  flex: 1 0 40ch;
 
   &:hover {
     box-shadow: 0 0.2em 0.5em rgba(184, 184, 184, 0.5);
