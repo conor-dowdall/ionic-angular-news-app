@@ -1,10 +1,55 @@
-ion-card {
-  padding: 2em;
-  width: min-content;
+.news-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1em;
+  max-width: 97%;
+  margin: 1em auto;
 }
 
-ion-label {
-  > img {
+.news-item {
+  display: flex;
+  gap: 0.5em;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #838383;
+  border-radius: 0.9em;
+  padding: 0.5em;
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+  max-width: 50ch;
+
+  @media (width<100ch) {
+    max-width: unset;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  &:hover {
+    box-shadow: 0 0.2em 0.5em rgba(184, 184, 184, 0.5);
+  }
+}
+
+.news-image {
+  flex-shrink: 0;
+  margin: 0.5em;
+  img {
     width: 5em;
+    height: 5em;
+    object-fit: cover;
+    border-radius: 0.4em;
+  }
+}
+
+.news-content {
+  flex-grow: 1;
+  h2 {
+    margin: 0;
+    font-size: 1em;
+    text-wrap: balance;
+  }
+  p {
+    font-size: 0.9em;
+    color: #acacac;
   }
 }
