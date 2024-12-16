@@ -18,11 +18,11 @@
   transition: box-shadow 0.3s ease;
   cursor: pointer;
   max-width: 50ch;
+  margin: 0 auto;
 
-  @media (width<100ch) {
+  @media (width<110ch) {
     max-width: unset;
     width: 90%;
-    margin: 0 auto;
   }
 
   &:hover {
