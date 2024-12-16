@@ -1,12 +1,16 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    @if (countryName) {
+    <ion-title>News | {{countryName}}</ion-title>
+    } @else {
     <ion-title>News</ion-title>
+    }
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <div class="news-container">
-    @for (newsResult of newsResults; track newsResult.article_id) {
+    @for (newsResult of newsResults;track newsResult.article_id) {
     <a [href]="newsResult.link" target="_blank" class="news-item">
       @if (newsResult.image_url) {
       <div class="news-image">
@@ -23,6 +27,29 @@
         </p>
       </div>
     </a>
-    }
+    } @empty { @if (newsResults.length === 0) { @for (char of "0123456789";
+    track $index) {
+    <div class="news-item">
+      <div class="news-image-gradient"></div>
+      <div class="news-content">
+        <h2>
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 10ch"
+          ></ion-skeleton-text>
+        </h2>
+        <p>
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 30ch"
+          ></ion-skeleton-text>
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 20ch"
+          ></ion-skeleton-text>
+        </p>
+      </div>
+    </div>
+    } } }
   </div>
 </ion-content>

@@ -6,12 +6,7 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
-  IonThumbnail,
-  IonCardContent,
-  IonItem,
-  IonLabel,
-  IonCard,
-  IonCardTitle,
+  IonSkeletonText,
 } from '@ionic/angular/standalone';
 import { NewsService, Result } from 'src/app/services/news.service';
 import { ToastService } from 'src/app/services/toast.service';
@@ -24,16 +19,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./news.page.scss'],
   standalone: true,
   imports: [
-    IonCardTitle,
-    IonCard,
-    IonLabel,
-    IonItem,
-    IonCardContent,
+    IonSkeletonText,
     IonContent,
     IonHeader,
     IonTitle,
     IonToolbar,
-    IonThumbnail,
     CommonModule,
     FormsModule,
     TruncateWordsPipe,
@@ -44,18 +34,22 @@ export class NewsPage implements OnInit {
   private newsService = inject(NewsService);
   private route = inject(ActivatedRoute);
 
+  countryName: string | null = null;
   newsResults: Result[] = [];
 
   constructor() {}
 
   ngOnInit() {
+    this.countryName = this.route.snapshot.paramMap.get('countryName');
+
     const countryCode = this.route.snapshot.paramMap.get('countryCode');
     if (countryCode !== null) this.loadNews(countryCode);
   }
 
   private async loadNews(countryCode: string) {
     try {
-      this.newsResults = await this.newsService.getNews(countryCode);
+      this.newsResults = [];
+      // this.newsResults = await this.newsService.getNews(countryCode);
       this.toastService.presentToast('News loaded', 650, 'success');
     } catch (error) {
       if (error instanceof Error)

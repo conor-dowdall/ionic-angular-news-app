@@ -12,7 +12,7 @@ export const routes: Routes = [
       import('./pages/country/country.page').then((m) => m.CountryPage),
   },
   {
-    path: 'news/:countryCode',
+    path: 'news/:countryCode/:countryName',
     loadComponent: () =>
       import('./pages/news/news.page').then((m) => m.NewsPage),
   },

@@ -15,7 +15,10 @@
       Check the news or weather for {{country?.name?.common}}
     </ion-card-content>
     <div class="flex">
-      <ion-button [routerLink]="['/news', country?.cca2]" class="news">
+      <ion-button
+        [routerLink]="['/news', country?.cca2, country?.name?.official]"
+        class="news"
+      >
         <ion-icon slot="start" name="newspaper-outline"></ion-icon>
         News
       </ion-button>
