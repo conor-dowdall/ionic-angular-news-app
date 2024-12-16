@@ -34,17 +34,18 @@ export class NewsPage implements OnInit {
   private newsService = inject(NewsService);
   private route = inject(ActivatedRoute);
 
-  countryName: string | null = null;
   newsResults: Result[] = [];
+
+  countryName: string | null = null;
+
   newsFailed: boolean = false;
 
   constructor() {}
 
   ngOnInit() {
     this.countryName = this.route.snapshot.paramMap.get('countryName');
-
     const countryCode = this.route.snapshot.paramMap.get('countryCode');
-    if (countryCode !== null) this.loadNews(countryCode);
+    if (countryCode) this.loadNews(countryCode);
   }
 
   private async loadNews(countryCode: string) {

@@ -1,13 +1,15 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>weather</ion-title>
+    @if (countryName) {
+    <ion-title>Weather | {{countryName}}</ion-title>
+    } @else {
+    <ion-title>Weather</ion-title>
+    }
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">weather</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <p>{{countryName}}</p>
+  <p>{{lat}}</p>
+  <p>{{lng}}</p>
 </ion-content>

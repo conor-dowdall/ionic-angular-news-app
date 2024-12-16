@@ -10,7 +10,6 @@ import {
   IonCardSubtitle,
   IonCardHeader,
   IonCardContent,
-  IonButton,
   IonIcon,
 } from '@ionic/angular/standalone';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
@@ -25,7 +24,6 @@ import { newspaperOutline, sunnyOutline } from 'ionicons/icons';
   standalone: true,
   imports: [
     IonIcon,
-    IonButton,
     IonCardContent,
     IonCardHeader,
     IonCardSubtitle,

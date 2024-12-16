@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CapacitorHttp } from '@capacitor/core';
 import { environment } from 'src/environments/environment';
 
-export interface RootObject {
+export interface NewsRootObject {
   status: string;
   totalResults: number;
   results: Result[];

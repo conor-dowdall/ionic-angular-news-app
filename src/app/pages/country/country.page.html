@@ -23,7 +23,10 @@
         News
       </button>
       <button
-        [routerLink]="['/news', country?.name?.official, country?.cca2]"
+        [routerLink]="['/weather', 
+        country?.name?.official, 
+        country?.latlng?.[0], 
+        country?.latlng?.[1]]"
         class="weather"
       >
         <ion-icon name="sunny-outline"></ion-icon>
