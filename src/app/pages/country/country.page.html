@@ -15,17 +15,20 @@
       Check the news or weather for {{country?.name?.common}}
     </ion-card-content>
     <div class="flex">
-      <ion-button
+      <button
         [routerLink]="['/news', country?.cca2, country?.name?.official]"
         class="news"
       >
-        <ion-icon slot="start" name="newspaper-outline"></ion-icon>
+        <ion-icon name="newspaper-outline"></ion-icon>
         News
-      </ion-button>
-      <ion-button class="weather">
-        <ion-icon slot="start" name="sunny-outline"></ion-icon>
+      </button>
+      <button
+        [routerLink]="['/news', country?.cca2, country?.name?.official]"
+        class="weather"
+      >
+        <ion-icon name="sunny-outline"></ion-icon>
         Weather
-      </ion-button>
+      </button>
     </div>
   </ion-card>
 </ion-content>
