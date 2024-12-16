@@ -16,14 +16,14 @@
     </ion-card-content>
     <div class="flex">
       <button
-        [routerLink]="['/news', country?.cca2, country?.name?.official]"
+        [routerLink]="['/news', country?.name?.official, country?.cca2]"
         class="news"
       >
         <ion-icon name="newspaper-outline"></ion-icon>
         News
       </button>
       <button
-        [routerLink]="['/news', country?.cca2, country?.name?.official]"
+        [routerLink]="['/news', country?.name?.official, country?.cca2]"
         class="weather"
       >
         <ion-icon name="sunny-outline"></ion-icon>
