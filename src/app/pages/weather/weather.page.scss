@@ -10,3 +10,11 @@
   padding: 3em;
   box-shadow: 0 0.2em 0.5em rgba(184, 184, 184, 0.5);
 }
+
+.temperature {
+  padding: 0.3em 0.6em;
+  border-radius: 0.5em;
+  background: linear-gradient(135deg, rgb(71, 61, 61), rgb(17, 17, 17));
+  border: 1px solid rgba($color: #ffffff, $alpha: 0.7);
+  font-size: 2em;
+}

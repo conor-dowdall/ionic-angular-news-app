@@ -12,7 +12,9 @@ import { ActivatedRoute } from '@angular/router';
 import {
   WeatherRootObject,
   WeatherService,
+  WeatherUnits,
 } from 'src/app/services/weather.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-weather',
@@ -32,9 +34,12 @@ export class WeatherPage implements OnInit {
   private toastService = inject(ToastService);
   private weatherService = inject(WeatherService);
   private route = inject(ActivatedRoute);
+  private storage = inject(StorageService);
 
   weatherResults: WeatherRootObject | null = null;
   weatherIconUrl: string | null = null;
+  weatherUnits: WeatherUnits = WeatherUnits.Metric;
+  weatherUnitsString: string = '℃';
 
   cityName: string | null = null;
   lat: string | null = null;
@@ -45,11 +50,47 @@ export class WeatherPage implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    this.loadUnits();
     this.cityName = this.route.snapshot.paramMap.get('cityName');
     this.lat = this.route.snapshot.paramMap.get('lat');
     this.lng = this.route.snapshot.paramMap.get('lng');
     if (this.lat && this.lng) this.loadWeather(this.lat, this.lng);
     else console.error('no lat or lng');
+  }
+
+  private async loadUnits() {
+    this.weatherUnits = await this.getUnitsFromStorage();
+    this.setTemperatureUnits(this.weatherUnits);
+  }
+
+  async getUnitsFromStorage(): Promise<WeatherUnits> {
+    const storedValue: string | null = await this.storage.getItem('units');
+
+    // Check if the stored value is a valid WeatherUnits enum value
+    if (
+      storedValue &&
+      Object.values(WeatherUnits).includes(storedValue as WeatherUnits)
+    ) {
+      return storedValue as WeatherUnits;
+    }
+
+    return WeatherUnits.Metric;
+  }
+
+  setTemperatureUnits(units: WeatherUnits): void {
+    switch (units) {
+      case WeatherUnits.Metric:
+        this.weatherUnitsString = '°C'; // Celsius for metric
+        break;
+      case WeatherUnits.Imperial:
+        this.weatherUnitsString = '°F'; // Fahrenheit for imperial
+        break;
+      case WeatherUnits.Standard:
+        this.weatherUnitsString = 'K'; // Kelvin for standard
+        break;
+      default:
+        this.weatherUnitsString = '°C'; // Default to Celsius if no unit is set
+    }
   }
 
   private async loadWeather(

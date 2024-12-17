@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { CapacitorHttp } from '@capacitor/core';
 import { environment } from 'src/environments/environment';
 
+export enum WeatherUnits {
+  Standard = 'standard',
+  Metric = 'metric',
+  Imperial = 'imperial',
+}
+
 export interface WeatherRootObject {
   coord: Coord;
   weather: Weather[];
