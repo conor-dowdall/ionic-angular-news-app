@@ -41,7 +41,6 @@ export class CountrySelectComponent implements OnInit {
 
   private async loadCountries() {
     this.countries = await this.getSortedCountries();
-    this.filteredCountries = this.countries;
   }
 
   private async getSortedCountries(): Promise<Country[]> {

@@ -24,7 +24,7 @@
       </button>
       <button
         [routerLink]="['/weather', 
-        country?.name?.official, 
+        country?.capital?.[0], 
         country?.latlng?.[0], 
         country?.latlng?.[1]]"
         class="weather"

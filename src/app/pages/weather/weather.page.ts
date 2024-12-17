@@ -34,8 +34,9 @@ export class WeatherPage implements OnInit {
   private route = inject(ActivatedRoute);
 
   weatherResults: WeatherRootObject | null = null;
+  weatherIconUrl: string | null = null;
 
-  countryName: string | null = null;
+  cityName: string | null = null;
   lat: string | null = null;
   lng: string | null = null;
 
@@ -44,10 +45,11 @@ export class WeatherPage implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.countryName = this.route.snapshot.paramMap.get('countryName');
+    this.cityName = this.route.snapshot.paramMap.get('cityName');
     this.lat = this.route.snapshot.paramMap.get('lat');
     this.lng = this.route.snapshot.paramMap.get('lng');
     if (this.lat && this.lng) this.loadWeather(this.lat, this.lng);
+    else console.error('no lat or lng');
   }
 
   private async loadWeather(
@@ -62,7 +64,8 @@ export class WeatherPage implements OnInit {
         lng,
         units
       );
-      this.toastService.presentToast('News loaded', 650, 'success');
+      this.weatherIconUrl = `https://openweathermap.org/img/wn/${this.weatherResults?.weather?.[0]?.icon}@2x.png`;
+      this.toastService.presentToast('Weather loaded', 650, 'success');
     } catch (error) {
       this.weatherFailed = true;
       if (error instanceof Error)

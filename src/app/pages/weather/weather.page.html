@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    @if (countryName) {
-    <ion-title>Weather | {{countryName}}</ion-title>
+    @if (cityName) {
+    <ion-title>Weather | {{cityName}}</ion-title>
     } @else {
     <ion-title>Weather</ion-title>
     }
@@ -9,7 +9,10 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <p>{{countryName}}</p>
-  <p>{{lat}}</p>
-  <p>{{lng}}</p>
+  <div class="weather-card">
+    <h2>{{weatherResults?.weather?.[0]?.main}}</h2>
+    <p>{{weatherResults?.weather?.[0]?.description}}</p>
+    <img [src]="weatherIconUrl" alt="weather image" />
+    <p>{{weatherResults?.main?.temp}}</p>
+  </div>
 </ion-content>
