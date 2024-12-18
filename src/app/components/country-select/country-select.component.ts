@@ -41,6 +41,7 @@ export class CountrySelectComponent implements OnInit {
 
   private async loadCountries() {
     this.countries = await this.getSortedCountries();
+    this.filteredCountries = this.countries;
   }
 
   private async getSortedCountries(): Promise<Country[]> {
@@ -125,6 +126,13 @@ export class CountrySelectComponent implements OnInit {
       this.selectedIndex === -1
         ? this.originalCountrySearchTerm
         : this.filteredCountries[this.selectedIndex].name.official;
+
+    if (this.selectedIndex !== -1)
+      document
+        .getElementById(
+          this.filteredCountries[this.selectedIndex].name.official
+        )
+        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   onCountryEnterKey() {

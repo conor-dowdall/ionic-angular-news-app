@@ -10,6 +10,7 @@ import {
   IonContent,
 } from '@ionic/angular/standalone';
 import { CountrySelectComponent } from 'src/app/components/country-select/country-select.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +25,7 @@ import { CountrySelectComponent } from 'src/app/components/country-select/countr
     IonToolbar,
     IonHeader,
     CountrySelectComponent,
+    RouterLink,
   ],
 })
 export class HomePage implements AfterViewChecked {

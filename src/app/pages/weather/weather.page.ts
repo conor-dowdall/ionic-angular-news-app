@@ -39,7 +39,7 @@ export class WeatherPage implements OnInit {
   weatherResults: WeatherRootObject | null = null;
   weatherIconUrl: string | null = null;
   weatherUnits: WeatherUnits = WeatherUnits.Metric;
-  weatherUnitsString: string = '℃';
+  weatherUnitsString: string = '°C';
 
   cityName: string | null = null;
   lat: string | null = null;
@@ -50,35 +50,30 @@ export class WeatherPage implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.loadUnits();
+    this.initializeComponent();
+  }
+
+  private async initializeComponent() {
+    await this.loadWeatherUnits(); // Ensure weather units are loaded first
+    this.setWeatherUnitsString();
+
     this.cityName = this.route.snapshot.paramMap.get('cityName');
     this.lat = this.route.snapshot.paramMap.get('lat');
     this.lng = this.route.snapshot.paramMap.get('lng');
-    if (this.lat && this.lng) this.loadWeather(this.lat, this.lng);
-    else console.error('no lat or lng');
-  }
 
-  private async loadUnits() {
-    this.weatherUnits = await this.getUnitsFromStorage();
-    this.setTemperatureUnits(this.weatherUnits);
-  }
-
-  async getUnitsFromStorage(): Promise<WeatherUnits> {
-    const storedValue: string | null = await this.storage.getItem('units');
-
-    // Check if the stored value is a valid WeatherUnits enum value
-    if (
-      storedValue &&
-      Object.values(WeatherUnits).includes(storedValue as WeatherUnits)
-    ) {
-      return storedValue as WeatherUnits;
+    if (this.lat && this.lng) {
+      this.loadWeather(this.lat, this.lng, this.weatherUnits);
+    } else {
+      console.error('No lat or lng');
     }
-
-    return WeatherUnits.Metric;
   }
 
-  setTemperatureUnits(units: WeatherUnits): void {
-    switch (units) {
+  private async loadWeatherUnits() {
+    this.weatherUnits = await this.storage.getWeatherUnits();
+  }
+
+  setWeatherUnitsString(): void {
+    switch (this.weatherUnits) {
       case WeatherUnits.Metric:
         this.weatherUnitsString = '°C'; // Celsius for metric
         break;
@@ -93,14 +88,10 @@ export class WeatherPage implements OnInit {
     }
   }
 
-  private async loadWeather(
-    lat: string,
-    lng: string,
-    units: string = 'metric'
-  ) {
+  private async loadWeather(lat: string, lng: string, units: WeatherUnits) {
     try {
       this.weatherFailed = false;
-      this.weatherResults = await this.weatherService.getFakeWeather(
+      this.weatherResults = await this.weatherService.getWeather(
         lat,
         lng,
         units

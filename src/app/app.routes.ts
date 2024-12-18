@@ -12,6 +12,11 @@ export const routes: Routes = [
       import('./pages/home/home.page').then((m) => m.HomePage),
   },
   {
+    path: 'settings',
+    loadComponent: () =>
+      import('./pages/settings/settings.page').then((m) => m.SettingsPage),
+  },
+  {
     path: 'country/:countryName',
     loadComponent: () =>
       import('./pages/country/country.page').then((m) => m.CountryPage),

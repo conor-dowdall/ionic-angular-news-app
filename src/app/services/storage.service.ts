@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
+import { WeatherUnits } from './weather.service';
 
 @Injectable({
   providedIn: 'root',
@@ -34,5 +35,23 @@ export class StorageService {
 
   async hasItem(key: string): Promise<boolean> {
     return (await this.storage.get(key)) !== null;
+  }
+
+  async getWeatherUnits(): Promise<WeatherUnits> {
+    const storedValue: string | null = await this.getItem('weatherUnits');
+
+    // Check if the stored value is a valid WeatherUnits enum value
+    if (
+      storedValue &&
+      Object.values(WeatherUnits).includes(storedValue as WeatherUnits)
+    ) {
+      return storedValue as WeatherUnits;
+    }
+
+    return WeatherUnits.Metric;
+  }
+
+  async setWeatherUnits(weatherUnits: WeatherUnits): Promise<any> {
+    await this.setItem('weatherUnits', weatherUnits);
   }
 }

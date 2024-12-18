@@ -1,10 +1,15 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    @if (country?.name?.official) {
     <ion-title>{{country?.name?.official}}</ion-title>
+    }@else{
+    <ion-title>Invalid Country</ion-title>
+    }
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  @if (country?.name?.official) {
   <ion-card>
     <img src="{{country?.flags?.png}}" alt="Country flag" />
     <ion-card-header>
@@ -24,9 +29,9 @@
       </button>
       <button
         [routerLink]="['/weather', 
-        country?.capital?.[0], 
-        country?.latlng?.[0], 
-        country?.latlng?.[1]]"
+          country?.capital?.[0], 
+          country?.latlng?.[0], 
+          country?.latlng?.[1]]"
         class="weather"
       >
         <ion-icon name="sunny-outline"></ion-icon>
@@ -34,4 +39,7 @@
       </button>
     </div>
   </ion-card>
+  }@else {
+  <h2>No Country Found</h2>
+  }
 </ion-content>

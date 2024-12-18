@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title slot="start">Settings</ion-title>
+    <ion-button slot="end" routerLink="/home">
+      <ion-icon slot="icon-only" name="home"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-radio-group
+      name="units"
+      [value]="storedWeatherUnits"
+      (ionChange)="handleUnitsChange($event)"
+    >
+      <ion-list-header>
+        <ion-label>Weather Units</ion-label>
+      </ion-list-header>
+      @for (units of weatherUnits; track $index) {
+      <ion-item>
+        <ion-radio [value]="units">{{units}}</ion-radio>
+      </ion-item>
+      }
+    </ion-radio-group>
+  </ion-list>
+</ion-content>

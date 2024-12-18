@@ -10,8 +10,8 @@
 
 <ion-content [fullscreen]="true">
   <div class="weather-card">
-    <img [src]="weatherIconUrl" alt="weather image" />
     <h2>{{weatherResults?.weather?.[0]?.main}}</h2>
+    <img [src]="weatherIconUrl" alt="weather image" />
     <p>{{weatherResults?.weather?.[0]?.description}}</p>
     <p class="temperature">
       {{weatherResults?.main?.temp}}{{weatherUnitsString}}

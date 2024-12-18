@@ -1,3 +1,8 @@
 ion-note {
   font-size: 2.5em;
 }
+
+.country-list {
+  max-height: 50em;
+  overflow-y: scroll;
+}
