@@ -15,7 +15,7 @@ import {
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { CountriesService, Country } from 'src/app/services/countries.service';
 import { addIcons } from 'ionicons';
-import { newspaperOutline, sunnyOutline } from 'ionicons/icons';
+import { home, newspaperOutline, sunnyOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-country',
@@ -44,7 +44,7 @@ export class CountryPage implements OnInit {
   private countriesService = inject(CountriesService);
 
   constructor() {
-    addIcons({ newspaperOutline, sunnyOutline });
+    addIcons({ home, newspaperOutline, sunnyOutline });
   }
 
   ngOnInit() {

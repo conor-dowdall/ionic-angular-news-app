@@ -6,9 +6,13 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
+  IonButton,
+  IonIcon,
 } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { home } from 'ionicons/icons';
 import { ToastService } from 'src/app/services/toast.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
   WeatherRootObject,
   WeatherService,
@@ -22,12 +26,15 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./weather.page.scss'],
   standalone: true,
   imports: [
+    IonIcon,
+    IonButton,
     IonContent,
     IonHeader,
     IonTitle,
     IonToolbar,
     CommonModule,
     FormsModule,
+    RouterLink,
   ],
 })
 export class WeatherPage implements OnInit {
@@ -47,7 +54,9 @@ export class WeatherPage implements OnInit {
 
   weatherFailed: boolean = false;
 
-  constructor() {}
+  constructor() {
+    addIcons({ home });
+  }
 
   ngOnInit() {
     this.initializeComponent();
@@ -55,7 +64,6 @@ export class WeatherPage implements OnInit {
 
   private async initializeComponent() {
     await this.loadWeatherUnits(); // Ensure weather units are loaded first
-    this.setWeatherUnitsString();
 
     this.cityName = this.route.snapshot.paramMap.get('cityName');
     this.lat = this.route.snapshot.paramMap.get('lat');
@@ -70,6 +78,7 @@ export class WeatherPage implements OnInit {
 
   private async loadWeatherUnits() {
     this.weatherUnits = await this.storage.getWeatherUnits();
+    this.setWeatherUnitsString();
   }
 
   setWeatherUnitsString(): void {
@@ -90,6 +99,8 @@ export class WeatherPage implements OnInit {
 
   private async loadWeather(lat: string, lng: string, units: WeatherUnits) {
     try {
+      console.log(units);
+
       this.weatherFailed = false;
       this.weatherResults = await this.weatherService.getWeather(
         lat,

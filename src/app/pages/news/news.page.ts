@@ -7,11 +7,15 @@ import {
   IonTitle,
   IonToolbar,
   IonSkeletonText,
+  IonIcon,
+  IonButton,
 } from '@ionic/angular/standalone';
 import { NewsService, Result } from 'src/app/services/news.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { TruncateWordsPipe } from 'src/app/shared/pipes/truncate-words.pipe';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { addIcons } from 'ionicons';
+import { home } from 'ionicons/icons';
 
 @Component({
   selector: 'app-news',
@@ -19,6 +23,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./news.page.scss'],
   standalone: true,
   imports: [
+    IonButton,
+    IonIcon,
     IonSkeletonText,
     IonContent,
     IonHeader,
@@ -27,6 +33,7 @@ import { ActivatedRoute } from '@angular/router';
     CommonModule,
     FormsModule,
     TruncateWordsPipe,
+    RouterLink,
   ],
 })
 export class NewsPage implements OnInit {
@@ -40,7 +47,9 @@ export class NewsPage implements OnInit {
 
   newsFailed: boolean = false;
 
-  constructor() {}
+  constructor() {
+    addIcons({ home });
+  }
 
   ngOnInit() {
     this.countryName = this.route.snapshot.paramMap.get('countryName');

@@ -1,9 +1,15 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     @if (country?.name?.official) {
-    <ion-title>{{country?.name?.official}}</ion-title>
+    <ion-title slot="start">{{country?.name?.official}}</ion-title>
+    <ion-button slot="end" routerLink="/home">
+      <ion-icon slot="icon-only" name="home"></ion-icon>
+    </ion-button>
     }@else{
-    <ion-title>Invalid Country</ion-title>
+    <ion-title slot="start">Invalid Country</ion-title>
+    <ion-button slot="end" routerLink="/home">
+      <ion-icon slot="icon-only" name="home"></ion-icon>
+    </ion-button>
     }
   </ion-toolbar>
 </ion-header>
