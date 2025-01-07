@@ -6,9 +6,9 @@ export const environment = {
   production: false,
   countriesAllUrl: 'https://restcountries.com/v3.1/all',
   newsBaseUrl: 'https://newsdata.io/api/1/latest',
-  newsApiKey: 'pub_624267624daca6c938afd088a339d6faf76c3',
+  newsApiKey: 'API_KEY_VALUE',
   weatherBaseUrl: 'http://api.openweathermap.org/data/2.5/weather',
-  weatherApiKey: 'e58ea64df28259c69a1ceb0f4b306e2c',
+  weatherApiKey: 'API_KEY_VALUE',
 };
 
 /*
